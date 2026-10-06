@@ -85,3 +85,9 @@ desktop.ini
 *.db
 *.pid
 *.seed
+
+# ===== 部署流水线运行期产物（由 npm run deploy 生成） =====
+.deploy/
+frontend/.deploy/
+**/public/seed.json
+**/public/deploy-status.json

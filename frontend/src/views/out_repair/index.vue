@@ -77,6 +77,7 @@ import {
   downloadEntries,
   listEntries,
   moduleMeta,
+  moduleStats,
   runAction as applyAction,
 } from '@/api/local-service'
 import type { EntryRow } from '@/data/types'
@@ -85,13 +86,13 @@ const meta = moduleMeta('out_repair')
 const columns = ["派遣编号", "缺陷来源", "维修人员", "预计工时", "携带工具", "出发时间", "返回时间", "维修状态"]
 const actions = ["下达派遣", "出发维修", "返回确认"]
 const statuses = ["待派遣", "已派遣", "维修中", "已返回"]
-const stats = [{"label": "待派遣维修", "value": 0}, {"label": "维修中数量", "value": 0}, {"label": "当日派遣", "value": 0}]
 
 const rows = ref<EntryRow[]>([])
 const total = ref(0)
 const errorMessage = ref('')
 const filters = ref<Record<string, string>>({})
 const filterFields = columns.slice(0, 3)
+const stats = computed(() => moduleStats(meta.key))
 const statusSummary = computed(() =>
   statuses.map((status: string) => ({
     status,
