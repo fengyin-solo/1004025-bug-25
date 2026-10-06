@@ -77,6 +77,7 @@ import {
   downloadEntries,
   listEntries,
   moduleMeta,
+  moduleMetrics,
   runAction as applyAction,
 } from '@/api/local-service'
 import type { EntryRow } from '@/data/types'
@@ -85,7 +86,7 @@ const meta = moduleMeta('repair_accept')
 const columns = ["验收编号", "关联维修", "验收人员", "验收日期", "维修质量", "验收结论", "复修要求", "验收状态"]
 const actions = ["发起验收", "确认通过", "退回返修"]
 const statuses = ["待验收", "验收中", "已通过", "需返修"]
-const stats = [{"label": "待验收记录", "value": 0}, {"label": "已通过记录", "value": 0}, {"label": "需返修记录", "value": 0}]
+const stats = computed(() => moduleMetrics(meta.key, rows.value))
 
 const rows = ref<EntryRow[]>([])
 const total = ref(0)

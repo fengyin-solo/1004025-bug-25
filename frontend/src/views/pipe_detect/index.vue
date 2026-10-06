@@ -77,6 +77,7 @@ import {
   downloadEntries,
   listEntries,
   moduleMeta,
+  moduleMetrics,
   runAction as applyAction,
 } from '@/api/local-service'
 import type { EntryRow } from '@/data/types'
@@ -85,7 +86,7 @@ const meta = moduleMeta('pipe_detect')
 const columns = ["检测编号", "检测管段", "检测方式", "检测设备", "检测日期", "检测长度", "检测结果", "检测状态"]
 const actions = ["安排检测", "记录结果", "标记复测"]
 const statuses = ["待检测", "检测中", "已完成", "需复测"]
-const stats = [{"label": "待检测管段", "value": 0}, {"label": "已完成管段", "value": 0}, {"label": "需复测管段", "value": 0}]
+const stats = computed(() => moduleMetrics(meta.key, rows.value))
 
 const rows = ref<EntryRow[]>([])
 const total = ref(0)

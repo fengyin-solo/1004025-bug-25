@@ -77,6 +77,7 @@ import {
   downloadEntries,
   listEntries,
   moduleMeta,
+  moduleMetrics,
   runAction as applyAction,
 } from '@/api/local-service'
 import type { EntryRow } from '@/data/types'
@@ -85,7 +86,7 @@ const meta = moduleMeta('leak_detect')
 const columns = ["检测编号", "检测管段", "检测方法", "检测人员", "检测日期", "漏点数量", "漏损程度", "检测状态"]
 const actions = ["安排检测", "生成报告", "标记已修复"]
 const statuses = ["待检测", "检测中", "已出报告", "已修复"]
-const stats = [{"label": "待检测管段", "value": 0}, {"label": "漏点总数", "value": 0}, {"label": "已修复漏点", "value": 0}]
+const stats = computed(() => moduleMetrics(meta.key, rows.value))
 
 const rows = ref<EntryRow[]>([])
 const total = ref(0)

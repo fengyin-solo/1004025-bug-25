@@ -77,6 +77,7 @@ import {
   downloadEntries,
   listEntries,
   moduleMeta,
+  moduleMetrics,
   runAction as applyAction,
 } from '@/api/local-service'
 import type { EntryRow } from '@/data/types'
@@ -85,7 +86,7 @@ const meta = moduleMeta('pipeline')
 const columns = ["管线编号", "管线类型", "起点位置", "终点位置", "管径规格", "管材类型", "敷设深度", "投运日期"]
 const actions = ["提交建档", "发起复核", "停用管线"]
 const statuses = ["待建档", "已建档", "待复核", "已停用"]
-const stats = [{"label": "管线总长", "value": 0}, {"label": "待复核管线", "value": 0}, {"label": "已停用管线", "value": 0}]
+const stats = computed(() => moduleMetrics(meta.key, rows.value))
 
 const rows = ref<EntryRow[]>([])
 const total = ref(0)

@@ -77,6 +77,7 @@ import {
   downloadEntries,
   listEntries,
   moduleMeta,
+  moduleMetrics,
   runAction as applyAction,
 } from '@/api/local-service'
 import type { EntryRow } from '@/data/types'
@@ -85,7 +86,7 @@ const meta = moduleMeta('water_quality')
 const columns = ["监测编号", "取样点位", "取样日期", "PH值", "氨氮浓度", "COD值", "浊度", "监测结论"]
 const actions = ["安排取样", "录入结果", "标记超标"]
 const statuses = ["待取样", "已取样", "已出结果", "已超标"]
-const stats = [{"label": "取样计划数", "value": 0}, {"label": "已出结果数", "value": 0}, {"label": "超标样本数", "value": 0}]
+const stats = computed(() => moduleMetrics(meta.key, rows.value))
 
 const rows = ref<EntryRow[]>([])
 const total = ref(0)

@@ -77,6 +77,7 @@ import {
   downloadEntries,
   listEntries,
   moduleMeta,
+  moduleMetrics,
   runAction as applyAction,
 } from '@/api/local-service'
 import type { EntryRow } from '@/data/types'
@@ -85,7 +86,7 @@ const meta = moduleMeta('trenchless')
 const columns = ["修复编号", "修复管段", "修复工艺", "修复材料", "施工日期", "修复长度", "修复效果", "修复状态"]
 const actions = ["安排施工", "确认完成", "发起复检"]
 const statuses = ["待施工", "施工中", "已完成", "待复检"]
-const stats = [{"label": "待施工修复", "value": 0}, {"label": "施工中修复", "value": 0}, {"label": "已完成修复", "value": 0}]
+const stats = computed(() => moduleMetrics(meta.key, rows.value))
 
 const rows = ref<EntryRow[]>([])
 const total = ref(0)

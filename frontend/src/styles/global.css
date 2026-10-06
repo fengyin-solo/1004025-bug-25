@@ -35,3 +35,41 @@ body { margin: 0; background: #f6f8fb; color: #1f2937; }
 .error-text { color: #b42318; }
 .status-legend { display: flex; flex-wrap: wrap; gap: 12px; margin: 0 0 10px; font-size: 12px; color: var(--muted); }
 .legend-item { background: #eef2f7; border-radius: 999px; padding: 2px 10px; }
+.muted-text { color: var(--muted); font-size: 12px; }
+.ok-text { color: #067647; }
+.section-title { font-size: 15px; margin: 18px 0 8px; }
+
+/* 部署流水线面板 */
+.deploy-panel { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 12px; }
+.deploy-flow { display: flex; gap: 8px; list-style: none; margin: 0; padding: 0; flex-wrap: wrap; }
+.deploy-stage { display: flex; gap: 8px; align-items: flex-start; flex: 1; min-width: 150px; border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; }
+.stage-mark { font-size: 15px; line-height: 1.3; }
+.stage-body { display: flex; flex-direction: column; gap: 2px; }
+.stage-body strong { font-size: 13px; }
+.stage-msg { font-size: 11px; color: var(--muted); word-break: break-all; }
+.deploy-stage.is-success { border-color: #75d0a3; background: #f0fbf5; }
+.deploy-stage.is-success .stage-mark { color: #067647; }
+.deploy-stage.is-running { border-color: var(--brand); background: #f2f7ff; }
+.deploy-stage.is-running .stage-mark { color: var(--brand); }
+.deploy-stage.is-failed { border-color: #e26a5b; background: #fef3f2; }
+.deploy-stage.is-failed .stage-mark { color: #b42318; }
+.deploy-stage.is-skipped { opacity: 0.65; }
+.deploy-foot { display: flex; justify-content: space-between; gap: 12px; margin-top: 10px; font-size: 12px; color: var(--muted); flex-wrap: wrap; }
+
+/* 样例恢复面板 */
+.restore-panel { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+.restore-line { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 13px; flex-wrap: wrap; }
+.progress-bar { height: 8px; border-radius: 999px; background: #eef2f7; overflow: hidden; }
+.progress-inner { height: 100%; background: var(--brand); transition: width .3s; }
+.progress-inner.bar-done { background: #2aa86a; }
+.progress-inner.bar-failed { background: #d92d20; }
+
+/* 工作台指标标签 */
+.metric-chip { display: inline-block; background: #eef2f7; border-radius: 999px; padding: 2px 10px; margin: 0 6px 4px 0; font-size: 12px; white-space: nowrap; }
+.tag-hint { margin-left: 6px; font-size: 11px; color: var(--brand); background: #eaf1ff; border-radius: 4px; padding: 0 6px; }
+
+/* 外出维修详情 */
+.detail-table th { width: 160px; background: #f8fafc; }
+.detail-actions { display: flex; gap: 10px; margin-top: 12px; }
+.warn-list { margin: 0 0 10px; padding-left: 20px; font-size: 13px; }
+.detail-empty { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 24px; display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }

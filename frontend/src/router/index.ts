@@ -5,6 +5,7 @@ const Pipeline = () => import('@/views/pipeline/index.vue')
 const Inspection = () => import('@/views/inspection/index.vue')
 const Defect = () => import('@/views/defect/index.vue')
 const OutRepair = () => import('@/views/out_repair/index.vue')
+const OutRepairDetail = () => import('@/views/out_repair/detail.vue')
 const RepairAccept = () => import('@/views/repair_accept/index.vue')
 const PipeDetect = () => import('@/views/pipe_detect/index.vue')
 const Manhole = () => import('@/views/manhole/index.vue')
@@ -28,6 +29,7 @@ const router = createRouter({
     { path: '/inspection', name: 'inspection', component: Inspection },
     { path: '/defect', name: 'defect', component: Defect },
     { path: '/out_repair', name: 'out_repair', component: OutRepair },
+    { path: '/out_repair/:id', name: 'out_repair_detail', component: OutRepairDetail },
     { path: '/repair_accept', name: 'repair_accept', component: RepairAccept },
     { path: '/pipe_detect', name: 'pipe_detect', component: PipeDetect },
     { path: '/manhole', name: 'manhole', component: Manhole },

@@ -77,6 +77,7 @@ import {
   downloadEntries,
   listEntries,
   moduleMeta,
+  moduleMetrics,
   runAction as applyAction,
 } from '@/api/local-service'
 import type { EntryRow } from '@/data/types'
@@ -85,7 +86,7 @@ const meta = moduleMeta('flow_monitor')
 const columns = ["监测点编号", "监测点位", "监测时段", "瞬时流量", "累计流量", "水位标高", "流速", "数据状态"]
 const actions = ["标记异常", "恢复在线", "申请校准"]
 const statuses = ["在线", "离线", "数据异常", "已校准"]
-const stats = [{"label": "在线测点", "value": 0}, {"label": "离线测点", "value": 0}, {"label": "异常测点", "value": 0}]
+const stats = computed(() => moduleMetrics(meta.key, rows.value))
 
 const rows = ref<EntryRow[]>([])
 const total = ref(0)

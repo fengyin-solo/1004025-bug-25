@@ -43,11 +43,13 @@
       </thead>
       <tbody>
         <tr v-for="row in rows" :key="String(row.id)">
-          <td v-for="column in columns" :key="column">{{ row[column] ?? '—' }}</td>
-          <td>{{ row.status }}</td>
+          <td v-for="column in columns" :key="column">{{ row[column] === '' ? '—' : (row[column] ?? '—') }}</td>
+          <td>
+            <RouterLink class="link" :to="`/out_repair/${row.id}`">{{ row.status }}</RouterLink>
+          </td>
           <td class="row-actions">
             <button
-              v-for="action in actions"
+              v-for="action in availableActions(row)"
               :key="action"
               class="link"
               type="button"
@@ -55,6 +57,7 @@
             >
               {{ action }}
             </button>
+            <RouterLink class="link" :to="`/out_repair/${row.id}`">详情</RouterLink>
           </td>
         </tr>
         <tr v-if="!rows.length">
@@ -77,6 +80,7 @@ import {
   downloadEntries,
   listEntries,
   moduleMeta,
+  moduleMetrics,
   runAction as applyAction,
 } from '@/api/local-service'
 import type { EntryRow } from '@/data/types'
@@ -85,19 +89,26 @@ const meta = moduleMeta('out_repair')
 const columns = ["派遣编号", "缺陷来源", "维修人员", "预计工时", "携带工具", "出发时间", "返回时间", "维修状态"]
 const actions = ["下达派遣", "出发维修", "返回确认"]
 const statuses = ["待派遣", "已派遣", "维修中", "已返回"]
-const stats = [{"label": "待派遣维修", "value": 0}, {"label": "维修中数量", "value": 0}, {"label": "当日派遣", "value": 0}]
 
 const rows = ref<EntryRow[]>([])
 const total = ref(0)
 const errorMessage = ref('')
 const filters = ref<Record<string, string>>({})
 const filterFields = columns.slice(0, 3)
+const stats = computed(() => moduleMetrics(meta.key, rows.value))
 const statusSummary = computed(() =>
   statuses.map((status: string) => ({
     status,
     count: rows.value.filter((row) => String(row.status) === status).length,
   })),
 )
+
+// 只暴露当前状态对应的下一步动作：待派遣→下达派遣，已派遣→出发维修，
+// 维修中→返回确认，已返回无后续动作。避免跨环节乱点造成时间/状态错档。
+function availableActions(row: EntryRow): string[] {
+  const index = statuses.indexOf(String(row.status))
+  return index >= 0 && index < actions.length ? [actions[index]] : []
+}
 
 function resetFilters() {
   filters.value = {}

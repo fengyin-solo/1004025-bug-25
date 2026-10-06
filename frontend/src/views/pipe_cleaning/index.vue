@@ -77,6 +77,7 @@ import {
   downloadEntries,
   listEntries,
   moduleMeta,
+  moduleMetrics,
   runAction as applyAction,
 } from '@/api/local-service'
 import type { EntryRow } from '@/data/types'
@@ -85,7 +86,7 @@ const meta = moduleMeta('pipe_cleaning')
 const columns = ["清洗编号", "清洗管段", "清洗方式", "清洗设备", "计划日期", "实际日期", "清洗长度", "清洗状态"]
 const actions = ["安排清洗", "开始清洗", "确认完成"]
 const statuses = ["待清洗", "清洗中", "已完成", "需复查"]
-const stats = [{"label": "待清洗管段", "value": 0}, {"label": "清洗中管段", "value": 0}, {"label": "已完成管段", "value": 0}]
+const stats = computed(() => moduleMetrics(meta.key, rows.value))
 
 const rows = ref<EntryRow[]>([])
 const total = ref(0)

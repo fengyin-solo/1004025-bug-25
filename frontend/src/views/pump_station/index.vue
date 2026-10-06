@@ -77,6 +77,7 @@ import {
   downloadEntries,
   listEntries,
   moduleMeta,
+  moduleMetrics,
   runAction as applyAction,
 } from '@/api/local-service'
 import type { EntryRow } from '@/data/types'
@@ -85,7 +86,7 @@ const meta = moduleMeta('pump_station')
 const columns = ["泵站编号", "泵站名称", "所在区域", "水泵型号", "额定流量", "运行电流", "运行时长", "运行状态"]
 const actions = ["启动泵站", "正常停机", "上报故障"]
 const statuses = ["待启机", "运行中", "已停机", "故障中"]
-const stats = [{"label": "运行中泵站", "value": 0}, {"label": "故障泵站", "value": 0}, {"label": "今日累计运行", "value": 0}]
+const stats = computed(() => moduleMetrics(meta.key, rows.value))
 
 const rows = ref<EntryRow[]>([])
 const total = ref(0)

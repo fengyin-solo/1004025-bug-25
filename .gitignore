@@ -85,3 +85,6 @@ desktop.ini
 *.db
 *.pid
 *.seed
+
+# ===== 部署流水线运行状态（每次部署重新生成） =====
+frontend/public/deploy-state.json

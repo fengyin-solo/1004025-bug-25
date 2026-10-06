@@ -77,6 +77,7 @@ import {
   downloadEntries,
   listEntries,
   moduleMeta,
+  moduleMetrics,
   runAction as applyAction,
 } from '@/api/local-service'
 import type { EntryRow } from '@/data/types'
@@ -85,7 +86,7 @@ const meta = moduleMeta('emergency')
 const columns = ["事件编号", "事件类型", "事发地点", "危害等级", "接报时间", "处置时限", "处置方案", "事件状态"]
 const actions = ["启动响应", "制定方案", "确认处置"]
 const statuses = ["待响应", "响应中", "处置中", "已处置"]
-const stats = [{"label": "待响应事件", "value": 0}, {"label": "处置中事件", "value": 0}, {"label": "已处置事件", "value": 0}]
+const stats = computed(() => moduleMetrics(meta.key, rows.value))
 
 const rows = ref<EntryRow[]>([])
 const total = ref(0)

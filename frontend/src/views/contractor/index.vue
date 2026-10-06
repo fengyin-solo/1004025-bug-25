@@ -77,6 +77,7 @@ import {
   downloadEntries,
   listEntries,
   moduleMeta,
+  moduleMetrics,
   runAction as applyAction,
 } from '@/api/local-service'
 import type { EntryRow } from '@/data/types'
@@ -85,7 +86,7 @@ const meta = moduleMeta('contractor')
 const columns = ["队伍编号", "队伍名称", "资质等级", "所属企业", "联系人", "联系电话", "特种作业证", "队伍状态"]
 const actions = ["审核备案", "安排作业", "清退队伍"]
 const statuses = ["待审核", "已备案", "作业中", "已清退"]
-const stats = [{"label": "备案队伍", "value": 0}, {"label": "作业中队伍", "value": 0}, {"label": "待审核队伍", "value": 0}]
+const stats = computed(() => moduleMetrics(meta.key, rows.value))
 
 const rows = ref<EntryRow[]>([])
 const total = ref(0)
